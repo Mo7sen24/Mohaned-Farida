@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف مهند وفريدة | The Ivory Sage Floral</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f4f6f4',
+                            100: '#e3e8e3',
+                            200: '#c7d2c6',
+                            300: '#a3b5a1',
+                            400: '#8a9a86',
+                            500: '#6b7d67',
+                            600: '#5c6e58',
+                            700: '#485545',
+                            800: '#3b4539',
+                        },
+                        ivory: {
+                            DEFAULT: '#fcfbf7',
+                            dark: '#f4f0ea',
+                            accent: '#e9e3d8'
+                        },
+                        gold: {
+                            light: '#f3e5ab',
+                            DEFAULT: '#d4af37',
+                            dark: '#c5a059'
+                        }
+                    },
+                    fontFamily: {
+                        amiri: ['Amiri', 'serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        cormorant: ['Cormorant Garamond', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fcfbf7;
+            color: #3b4539;
+            font-family: 'Tajawal', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f0ea;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8a9a86;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5c6e58;
+        }
+
+        /* 3D Envelope Styles */
+        .envelope-wrapper {
+            perspective: 1200px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #f4f0ea;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 20px rgba(212, 175, 55, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
+
+        @media (min-width: 640px) {
+            .envelope {
+                width: 460px;
+                height: 310px;
+            }
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: #ebd8c1;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px);
+            background-size: 12px 12px;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75%;
+            background: #e4d8c8;
+            clip-path: polygon(0 0, 50% 35%, 100% 0, 100% 100%, 0 100%);
+            z-index: 4;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: inset 0 10px 15px -3px rgba(0,0,0,0.08);
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            width: 64px;
+            height: 64px;
+            background: radial-gradient(circle, #e6c265 0%, #c5a059 60%, #8a6c28 100%);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.4);
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        }
+
+        .wax-seal:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8), inset 0 2px 4px rgba(255,255,255,0.6);
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1.5px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+        }
+
+        .envelope-card {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 10px;
+            bottom: 10px;
+            background: #fcfbf7;
+            border-radius: 6px;
+            z-index: 2;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 15px;
+            border: 1px solid #d4af37;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .envelope.open .envelope-card {
+            transform: translateY(-80px) scale(1.05);
+            z-index: 6;
+        }
+
+        /* Floating Botanical Leaves */
+        .leaf-float {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Equalizer Animation */
+        .eq-bar {
+            width: 3px;
+            height: 12px;
+            background-color: #d4af37;
+            margin: 0 1px;
+            animation: bounce 1s infinite ease-in-out alternate;
+        }
+
+        .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { animation-delay: 0.2s; }
+        .eq-bar:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0% { height: 4px; }
+            100% { height: 16px; }
+        }
+
+        .music-paused .eq-bar {
+            animation-play-state: paused;
+            height: 4px;
+        }
+
+        /* Timeline Glow Effect */
+        .timeline-line {
+            background: linear-gradient(180deg, #d4af37 0%, #8a9a86 50%, #d4af37 100%);
+            background-size: 100% 200%;
+            animation: gradientMove 4s infinite linear;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 200%; }
+        }
+
+        /* Modal Styles */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Glassmorphic Cards */
+        .glass-card {
+            background: rgba(252, 251, 247, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body class="relative text-sage-800">
+
+    <!-- Audio Player Control -->
+    <div class="fixed top-5 left-5 z-50">
+        <button id="musicToggleBtn" onclick="toggleAudio()" class="flex items-center gap-2 bg-ivory-dark border border-gold/40 text-sage-800 px-4 py-2 rounded-full shadow-lg hover:border-gold transition-all duration-300">
+            <span class="text-xs font-semibold text-sage-700">الموسيقى</span>
+            <div id="equalizer" class="flex items-end h-4 music-paused">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
+            <i id="musicIcon" class="fas fa-music text-gold ml-1 text-sm"></i>
+        </button>
+        <audio id="bgAudio" loop preload="auto">
+            <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-marriage-481.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Floating Leaves Overlay (Scroll Parallax) -->
+    <div id="leaf1" class="leaf-float top-[20%] right-[5%] w-16 md:w-24">
+        <svg viewBox="0 0 100 100" fill="#8a9a86"><path d="M50 0 C20 30 20 70 50 100 C80 70 80 30 50 0 Z"/></svg>
+    </div>
+    <div id="leaf2" class="leaf-float top-[50%] left-[3%] w-20 md:w-28 transform -rotate-45">
+        <svg viewBox="0 0 100 100" fill="#5c6e58"><path d="M50 0 C10 25 10 75 50 100 C90 75 90 25 50 0 Z"/></svg>
+    </div>
+    <div id="leaf3" class="leaf-float top-[75%] right-[4%] w-14 md:w-20 transform rotate-12">
+        <svg viewBox="0 0 100 100" fill="#a3b5a1"><path d="M50 0 C20 30 20 70 50 100 C80 70 80 30 50 0 Z"/></svg>
+    </div>
+
+    <!-- SECTION 1: 3D Interactive Envelope Overlay / Opening -->
+    <section id="envelopeSection" class="min-h-screen w-full flex flex-col items-center justify-center relative p-4 bg-gradient-to-b from-[#f7f4ee] to-[#fcfbf7] overflow-hidden">
+        
+        <!-- Floral Frame Accents -->
+        <div class="absolute top-0 left-0 w-32 md:w-56 pointer-events-none opacity-40">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0C50 0 100 20 130 60C160 100 180 150 200 200H0V0Z" fill="#8a9a86"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-0 right-0 w-32 md:w-56 pointer-events-none opacity-40 transform rotate-180">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0C50 0 100 20 130 60C160 100 180 150 200 200H0V0Z" fill="#8a9a86"/>
+            </svg>
+        </div>
+
+        <div class="text-center mb-8 z-10">
+            <span class="text-gold uppercase tracking-[0.3em] text-xs md:text-sm font-semibold">The Ivory Sage Floral Collection</span>
+            <h1 class="font-amiri text-2xl md:text-3xl text-sage-800 mt-2">دعوة زفاف خاصة جداً</h1>
+            <p class="text-sage-500 text-sm mt-1">اضغط على الختم الذهبي لفتح الرسالة</p>
+        </div>
+
+        <!-- 3D Envelope Container -->
+        <div class="envelope-wrapper relative z-20">
+            <div id="envelope" class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-pocket"></div>
+                
+                <!-- Wax Seal Button -->
+                <div id="waxSeal" onclick="openEnvelope()" class="wax-seal" title="اضغط لفتح الدعوة">
+                    <span class="font-playfair text-ivory font-bold text-lg tracking-wider">M&F</span>
+                </div>
+
+                <!-- Envelope Card Preview -->
+                <div class="envelope-card">
+                    <span class="text-gold text-xs tracking-widest font-playfair uppercase">Wedding Invitation</span>
+                    <h2 class="font-amiri text-2xl md:text-3xl font-bold text-sage-800 my-1">مهند & فريدة</h2>
+                    <p class="text-xs text-sage-600 font-tajawal">يتشرفان بدعوتكم لمشاركتهما فرحتهما</p>
+                    <div class="mt-2 text-[10px] text-gold-dark border-t border-b border-gold/30 py-1 px-4">
+                        08.08.2027 • Hilton King's Ranch
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unfold / Scroll Button (Hidden until opened) -->
+        <button id="scrollDownBtn" onclick="scrollToMainContent()" class="hidden mt-12 z-30 flex-col items-center gap-2 text-sage-700 hover:text-gold transition-all duration-300 animate-bounce">
+            <span class="text-xs font-semibold tracking-wider">عرض تفاصيل الدعوة</span>
+            <div class="w-8 h-8 rounded-full border border-gold/50 flex items-center justify-center">
+                <i class="fas fa-chevron-down text-gold"></i>
+            </div>
+        </button>
+    </section>
+
+    <!-- MAIN INVITATION CONTENT (Revealed on Open) -->
+    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen">
+
+        <!-- HERO BANNER / HEADER -->
+        <section class="py-20 px-4 text-center relative overflow-hidden bg-ivory">
+            <div class="max-w-4xl mx-auto border border-gold/30 p-8 md:p-16 rounded-2xl relative bg-ivory-dark/40 shadow-xl" data-aos="zoom-in" data-aos-duration="1200">
+                
+                <!-- Decorative Corner Flourishes -->
+                <div class="absolute top-3 right-3 text-gold/60 text-2xl"><i class="fas fa-leaf"></i></div>
+                <div class="absolute top-3 left-3 text-gold/60 text-2xl transform -scale-x-100"><i class="fas fa-leaf"></i></div>
+                <div class="absolute bottom-3 right-3 text-gold/60 text-2xl transform -scale-y-100"><i class="fas fa-leaf"></i></div>
+                <div class="absolute bottom-3 left-3 text-gold/60 text-2xl transform -scale-x-100 -scale-y-100"><i class="fas fa-leaf"></i></div>
+
+                <div class="inline-block px-4 py-1 rounded-full bg-sage-100 text-sage-700 text-xs tracking-widest font-bold mb-4 uppercase">
+                    بسم الله الرحمن الرحيم
+                </div>
+
+                <p class="font-amiri text-lg md:text-xl text-sage-600 mb-6 italic leading-relaxed">
+                    "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+                </p>
+
+                <div class="my-8">
+                    <span class="text-gold font-playfair uppercase text-sm tracking-[0.4em] block mb-2">Together with their families</span>
+                    <h1 class="font-amiri text-4xl md:text-6xl text-sage-800 font-bold tracking-tight mb-2">
+                        مهند <span class="text-gold font-playfair font-normal italic">&amp;</span> فريدة
+                    </h1>
+                    <p class="font-cormorant text-xl text-sage-600 italic">Mohanad & Farida</p>
+                </div>
+
+                <p class="text-sage-700 text-base md:text-lg max-w-xl mx-auto leading-relaxed my-6 font-light">
+                    يسعدنا ويشرفنا دعوتكم لحضور حفل زفافنا ومشاركتنا أجمل لحظات العمر ونحن نبدأ فصلنا الجديد معاً.
+                </p>
+
+                <div class="flex flex-wrap justify-center items-center gap-6 mt-8 pt-6 border-t border-gold/20 text-sage-700">
+                    <div class="flex items-center gap-2">
+                        <i class="far fa-calendar-alt text-gold text-lg"></i>
+                        <span class="font-semibold text-sm">الأحد، 08 أغسطس 2027</span>
+                    </div>
+                    <div class="w-1.5 h-1.5 rounded-full bg-gold hidden sm:block"></div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-gold text-lg"></i>
+                        <span class="font-semibold text-sm">فندق هيلتون كينجز رانش</span>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <button onclick="openRSVPModal()" class="bg-sage-600 hover:bg-sage-700 text-ivory px-8 py-3 rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        تأكيد الحضور (RSVP)
+                    </button>
+                    <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="border border-gold/60 text-sage-800 hover:bg-gold/10 px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2">
+                        <i class="fas fa-location-arrow text-gold"></i>
+                        موقع القاعة
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: COUNTDOWN TIMER -->
+        <section class="py-16 bg-ivory-dark/60 border-y border-gold/20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <span class="text-gold text-xs font-semibold tracking-widest uppercase mb-2 block" data-aos="fade-up">العد التنازلي لليوم الموعود</span>
+                <h2 class="font-amiri text-3xl md:text-4xl text-sage-800 mb-10" data-aos="fade-up" data-aos-delay="100">باقي على حفل الزفاف</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-ivory p-6 rounded-2xl shadow-sm border border-gold/20">
+                        <span id="cd-days" class="font-playfair text-3xl md:text-5xl font-bold text-sage-700 block mb-1">00</span>
+                        <span class="text-xs text-sage-500 font-semibold">يوم</span>
+                    </div>
+                    <div class="bg-ivory p-6 rounded-2xl shadow-sm border border-gold/20">
+                        <span id="cd-hours" class="font-playfair text-3xl md:text-5xl font-bold text-sage-700 block mb-1">00</span>
+                        <span class="text-xs text-sage-500 font-semibold">ساعة</span>
+                    </div>
+                    <div class="bg-ivory p-6 rounded-2xl shadow-sm border border-gold/20">
+                        <span id="cd-minutes" class="font-playfair text-3xl md:text-5xl font-bold text-sage-700 block mb-1">00</span>
+                        <span class="text-xs text-sage-500 font-semibold">دقيقة</span>
+                    </div>
+                    <div class="bg-ivory p-6 rounded-2xl shadow-sm border border-gold/20">
+                        <span id="cd-seconds" class="font-playfair text-3xl md:text-5xl font-bold text-sage-700 block mb-1">00</span>
+                        <span class="text-xs text-sage-500 font-semibold">ثانية</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: WEDDING SCHEDULE TIMELINE -->
+        <section class="py-24 px-4 bg-ivory relative">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-gold text-xs font-semibold tracking-widest uppercase">Wedding Program</span>
+                    <h2 class="font-amiri text-3xl md:text-4xl text-sage-800 mt-2">جدول فقرات الحفل</h2>
+                    <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
+                </div>
+
+                <div class="relative wrap overflow-hidden p-2">
+                    <!-- Dynamic Glowing Line -->
+                    <div class="timeline-line absolute border-opacity-20 border-gold h-full border right-1/2 rounded-full transform translate-x-1/2"></div>
+
+                    <!-- Item 1 -->
+                    <div class="mb-12 flex justify-between items-center w-full right-timeline" data-aos="fade-up">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-gold text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">1</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-r-4 border-gold">
+                            <span class="text-xs font-bold text-gold-dark block mb-1"><i class="far fa-clock ml-1"></i> 6:00 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800">مراسم الزفاف</h3>
+                            <p class="text-xs text-sage-600 mt-1">استقبال الضيوف وبدء المراسم الرسمية</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="mb-12 flex justify-between items-center w-full flex-row-reverse" data-aos="fade-up" data-aos-delay="100">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-sage-500 text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">2</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-l-4 border-sage-500 text-left" dir="ltr">
+                            <span class="text-xs font-bold text-sage-600 block mb-1"><i class="far fa-clock mr-1"></i> 7:00 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800 text-right">ساعة الكوكتيل</h3>
+                            <p class="text-xs text-sage-600 mt-1 text-right">المشروبات والمقبلات وتلألؤ الأجواء</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="mb-12 flex justify-between items-center w-full" data-aos="fade-up" data-aos-delay="150">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-gold text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">3</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-r-4 border-gold">
+                            <span class="text-xs font-bold text-gold-dark block mb-1"><i class="far fa-clock ml-1"></i> 8:00 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800">حفل الاستقبال</h3>
+                            <p class="text-xs text-sage-600 mt-1">دخول العروسين وبدء الاحتفالات</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="mb-12 flex justify-between items-center w-full flex-row-reverse" data-aos="fade-up" data-aos-delay="200">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-sage-500 text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">4</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-l-4 border-sage-500 text-left" dir="ltr">
+                            <span class="text-xs font-bold text-sage-600 block mb-1"><i class="far fa-clock mr-1"></i> 9:00 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800 text-right">مأدبة العشاء</h3>
+                            <p class="text-xs text-sage-600 mt-1 text-right">تناول وجبة العشاء الفاخرة</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="mb-12 flex justify-between items-center w-full" data-aos="fade-up" data-aos-delay="250">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-gold text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">5</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-r-4 border-gold">
+                            <span class="text-xs font-bold text-gold-dark block mb-1"><i class="far fa-clock ml-1"></i> 10:30 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800">تقطيع كعكة الزفاف</h3>
+                            <p class="text-xs text-sage-600 mt-1">لحظة حاسمة ومميزة التقاط الصور</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="flex justify-between items-center w-full flex-row-reverse" data-aos="fade-up" data-aos-delay="300">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-10 flex items-center order-1 bg-sage-500 text-ivory w-10 h-10 rounded-full justify-center shadow-lg font-bold text-sm">6</div>
+                        <div class="order-1 glass-card rounded-2xl shadow-md w-5/12 px-6 py-4 border-l-4 border-sage-500 text-left" dir="ltr">
+                            <span class="text-xs font-bold text-sage-600 block mb-1"><i class="far fa-clock mr-1"></i> 11:00 PM</span>
+                            <h3 class="font-amiri font-bold text-lg text-sage-800 text-right">الرقص والاحتفال</h3>
+                            <p class="text-xs text-sage-600 mt-1 text-right">استمرار الأجواء الحماسية</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: DETAILS & DRESS CODE -->
+        <section class="py-20 px-4 bg-ivory-dark/40 border-t border-gold/20">
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Dress Code Card -->
+                    <div class="bg-ivory p-8 rounded-2xl border border-gold/30 shadow-md flex flex-col items-center text-center" data-aos="fade-right">
+                        <div class="w-12 h-12 rounded-full bg-sage-100 flex items-center justify-center text-sage-700 text-xl mb-4">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="font-amiri text-2xl text-sage-800 font-bold mb-2">قواعد الزي (Dress Code)</h3>
+                        <p class="text-xs text-sage-600 mb-6 leading-relaxed">
+                            يسعدنا تنسيق إطلالاتكم مع لوحة ألوان الحفل الأنيقة المستوحاة من الطبيعة العاجية والميرمية:
+                        </p>
+                        <!-- Color Swatches -->
+                        <div class="flex items-center gap-3">
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-full bg-[#dbe3d9] border border-black/10 shadow-inner"></div>
+                                <span class="text-[10px] text-sage-600">Pistachio</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-full bg-[#8a9a86] border border-black/10 shadow-inner"></div>
+                                <span class="text-[10px] text-sage-600">Sage</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-full bg-[#fcfbf7] border border-black/10 shadow-inner"></div>
+                                <span class="text-[10px] text-sage-600">Cream</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="w-10 h-10 rounded-full bg-[#d4af37] border border-black/10 shadow-inner"></div>
+                                <span class="text-[10px] text-sage-600">Gold</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Notes Card -->
+                    <div class="bg-ivory p-8 rounded-2xl border border-gold/30 shadow-md flex flex-col justify-between" data-aos="fade-left">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold-dark text-lg">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <h3 class="font-amiri text-2xl text-sage-800 font-bold">ملاحظات هامة</h3>
+                            </div>
+                            <ul class="space-y-4 text-xs md:text-sm text-sage-700 leading-relaxed">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-camera-retro text-gold mt-1"></i>
+                                    <span><strong>Unplugged Ceremony:</strong> نرجو من حضراتكم إبقاء الهواتف صامتة وعدم التصوير أثناء مراسم عقد القران لتمكين المصورين من التقاط أفضل اللحظات.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-child text-gold mt-1"></i>
+                                    <span><strong>حضور الأطفال:</strong> لجعل الليلة هادئة وممتعة للجميع، الحفل مخصص للكبار فقط.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-clock text-gold mt-1"></i>
+                                    <span><strong>المواعيد:</strong> يرجى الالتزام بالحضور في الموعد المspecified لتسهيل تنظيم الدخول.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PHOTO GALLERY (Lightbox) -->
+        <section class="py-20 px-4 bg-ivory">
+            <div class="max-w-5xl mx-auto text-center">
+                <span class="text-gold text-xs font-semibold tracking-widest uppercase" data-aos="fade-up">Moments & Memories</span>
+                <h2 class="font-amiri text-3xl md:text-4xl text-sage-800 mb-12" data-aos="fade-up" data-aos-delay="100">معرض الصور</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="relative group overflow-hidden rounded-2xl shadow-md border border-gold/20 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="لحظة رومانسية" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/8a9a86/ffffff?text=Wedding+Photo+1'">
+                        <div class="absolute inset-0 bg-sage-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-ivory">
+                            <i class="fas fa-search-plus text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-2xl shadow-md border border-gold/20 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="تنسيق الزهور" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/8a9a86/ffffff?text=Wedding+Photo+2'">
+                        <div class="absolute inset-0 bg-sage-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-ivory">
+                            <i class="fas fa-search-plus text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-2xl shadow-md border border-gold/20 cursor-pointer" onclick="openLightbox('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80')">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="الخواتم والدعوة" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/8a9a86/ffffff?text=Wedding+Photo+3'">
+                        <div class="absolute inset-0 bg-sage-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-ivory">
+                            <i class="fas fa-search-plus text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: LIVE WISH WALL (Guestbook) -->
+        <section class="py-20 px-4 bg-ivory-dark/60 border-t border-gold/20">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="text-gold text-xs font-semibold tracking-widest uppercase">Love & Wishes</span>
+                    <h2 class="font-amiri text-3xl md:text-4xl text-sage-800 mt-2">دعوات وحب (دفتر الزوار)</h2>
+                    <p class="text-sage-600 text-xs mt-2">شاركونا تهانيكم وأمنياتكم الطيبة للعروسين</p>
+                </div>
+
+                <!-- Input Form -->
+                <div class="bg-ivory p-6 rounded-2xl border border-gold/30 shadow-md mb-10" data-aos="fade-up">
+                    <form id="wishForm" onsubmit="addWish(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" id="wishName" placeholder="الاسم الكريم" required class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory">
+                            <input type="text" id="wishRelation" placeholder="صلة القرابة / الصداقة (اختياري)" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory">
+                        </div>
+                        <textarea id="wishMessage" rows="3" placeholder="اكتب مباركتك للعروسين هنا..." required class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory"></textarea>
+                        <button type="submit" class="w-full md:w-auto px-8 py-3 bg-sage-600 hover:bg-sage-700 text-ivory rounded-xl font-medium text-sm transition-all shadow">
+                            إرسال المباركة <i class="fas fa-paper-plane mr-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Wishes Feed -->
+                <div id="wishesFeed" class="grid grid-cols-1 md:grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Default Initial Wish -->
+                    <div class="bg-ivory p-5 rounded-xl border border-gold/20 shadow-sm relative">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-sage-800 text-sm">أحمد ومريم</h4>
+                            <span class="text-[10px] text-gold-dark font-semibold">عائلة العروس</span>
+                        </div>
+                        <p class="text-xs text-sage-600 leading-relaxed">ألف مبروك لأجمل عروسين! بارك الله لكما وبارك عليكما وجمع بينكما في خير.</p>
+                    </div>
+                    <div class="bg-ivory p-5 rounded-xl border border-gold/20 shadow-sm relative">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-sage-800 text-sm">د. عمر الخالد</h4>
+                            <span class="text-[10px] text-gold-dark font-semibold">صديق العريس</span>
+                        </div>
+                        <p class="text-xs text-sage-600 leading-relaxed">مبارك يا مهند يا صديقي، أتمنى لك ولفريدة حياة مليئة بالسعادة والهناء.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-12 px-4 bg-sage-800 text-ivory text-center relative overflow-hidden">
+            <div class="max-w-2xl mx-auto space-y-4">
+                <h3 class="font-amiri text-3xl font-bold text-gold">مهند &amp; فريدة</h3>
+                <p class="text-xs text-sage-200">نتطلع بشوق لرؤيتكم ومشاركتكم فرحتنا الكبرى</p>
+                <div class="text-[10px] text-sage-400 pt-6 border-t border-sage-700">
+                    The Ivory Sage Floral Wedding Suite • 2027
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- RSVP MODAL -->
+    <div id="rsvpModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 opacity-0 invisible">
+        <div class="bg-ivory rounded-2xl border border-gold/40 shadow-2xl max-w-lg w-full p-6 md:p-8 relative transform transition-all duration-300">
+            <button onclick="closeRSVPModal()" class="absolute top-4 left-4 text-sage-400 hover:text-sage-700 text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="text-gold text-xs font-semibold tracking-widest uppercase">RSVP</span>
+                <h3 class="font-amiri text-2xl md:text-3xl text-sage-800 font-bold mt-1">تأكيد الحضور</h3>
+                <p class="text-xs text-sage-600 mt-1">نرجو تأكيد الحضور قبل تاريخ 01 يوليو 2027</p>
+            </div>
+
+            <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-sage-700 mb-1">الاسم بالكامل</label>
+                    <input type="text" required class="w-full px-4 py-2.5 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory-dark/30">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-sage-700 mb-1">حالة الحضور</label>
+                    <select required class="w-full px-4 py-2.5 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory-dark/30">
+                        <option value="accept">يشرفني الحضور بكل سرور</option>
+                        <option value="decline">أعتذر عن عدم الحضور لظروف خاصة</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-sage-700 mb-1">عدد المرافقين</label>
+                    <input type="number" min="0" max="3" value="0" class="w-full px-4 py-2.5 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory-dark/30">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-sage-700 mb-1">ملاحظات أو تفضيلات غذائية</label>
+                    <textarea rows="2" class="w-full px-4 py-2.5 rounded-xl border border-sage-200 focus:outline-none focus:border-gold text-sm bg-ivory-dark/30" placeholder="أي معلومات تود إعلامنا بها..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-gold hover:bg-gold-dark text-sage-900 font-bold rounded-xl text-sm transition-all shadow">
+                    تاكيد الاختيار
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 opacity-0 invisible" onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full">
+            <img id="lightboxImg" src="" alt="صورة مكبرة" class="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl">
+            <button onclick="closeLightbox()" class="absolute -top-10 left-0 text-white text-2xl hover:text-gold">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- AOS Library Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 900,
+                once: true,
+                easing: 'ease-out-cubic'
+            });
+            startCountdown();
+        });
+
+        // 3D Envelope Unfold & Open Logic
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const waxSeal = document.getElementById('waxSeal');
+            const mainContent = document.getElementById('mainContent');
+            const scrollBtn = document.getElementById('scrollDownBtn');
+
+            // Wax Seal Glow & Disappear
+            waxSeal.style.transform = 'translate(-50%, -50%) scale(1.4)';
+            waxSeal.style.opacity = '0';
+            
+            setTimeout(() => {
+                waxSeal.style.display = 'none';
+                envelope.classList.add('open');
+
+                // Trigger Confetti
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#8a9a86', '#d4af37', '#fcfbf7']
+                });
+
+                setTimeout(() => {
+                    mainContent.classList.remove('opacity-0');
+                    scrollBtn.classList.remove('hidden');
+                    scrollBtn.classList.add('flex');
+                    
+                    // Smooth auto scroll to main content
+                    setTimeout(() => {
+                        scrollToMainContent();
+                    }, 800);
+                }, 1000);
+
+            }, 400);
+        }
+
+        function scrollToMainContent() {
+            document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Parallax Floating Leaves on Scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const leaf1 = document.getElementById('leaf1');
+            const leaf2 = document.getElementById('leaf2');
+            const leaf3 = document.getElementById('leaf3');
+
+            if(leaf1) leaf1.style.transform = `translateY(${scrolled * 0.15}px) rotate(${scrolled * 0.05}deg)`;
+            if(leaf2) leaf2.style.transform = `translateY(${scrolled * -0.1}px) rotate(${scrolled * -0.05}deg)`;
+            if(leaf3) leaf3.style.transform = `translateY(${scrolled * 0.08}px) rotate(${scrolled * 0.02}deg)`;
+        });
+
+        // Countdown Timer Logic
+        function startCountdown() {
+            const weddingDate = new Date("August 8, 2027 18:00:00").getTime();
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    document.getElementById("cd-days").innerText = days < 10 ? '0' + days : days;
+                    document.getElementById("cd-hours").innerText = hours < 10 ? '0' + hours : hours;
+                    document.getElementById("cd-minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+                    document.getElementById("cd-seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+                }
+            }, 1000);
+        }
+
+        // Background Audio Toggle
+        function toggleAudio() {
+            const audio = document.getElementById('bgAudio');
+            const eq = document.getElementById('equalizer');
+
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Audio play blocked', e));
+                eq.classList.remove('music-paused');
+            } else {
+                audio.pause();
+                eq.classList.add('music-paused');
+            }
+        }
+
+        // RSVP Modal Handlers
+        function openRSVPModal() {
+            document.getElementById('rsvpModal').classList.add('active');
+        }
+
+        function closeRSVPModal() {
+            document.getElementById('rsvpModal').classList.remove('active');
+        }
+
+        function submitRSVP(e) {
+            e.preventDefault();
+            alert('تم استلام تأكيد حضوركم بنجاح! ننتظركم بفارغ الصبر.');
+            closeRSVPModal();
+        }
+
+        // Guestbook Live Feed Logic
+        function addWish(e) {
+            e.preventDefault();
+            const name = document.getElementById('wishName').value;
+            const relation = document.getElementById('wishRelation').value || 'مهنئ';
+            const message = document.getElementById('wishMessage').value;
+
+            const feed = document.getElementById('wishesFeed');
+            const newWish = document.createElement('div');
+            newWish.className = "bg-ivory p-5 rounded-xl border border-gold/20 shadow-sm relative transform scale-95 transition-transform duration-300";
+            newWish.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-bold text-sage-800 text-sm">${escapeHtml(name)}</h4>
+                    <span class="text-[10px] text-gold-dark font-semibold">${escapeHtml(relation)}</span>
+                </div>
+                <p class="text-xs text-sage-600 leading-relaxed">${escapeHtml(message)}</p>
+            `;
+
+            feed.prepend(newWish);
+            setTimeout(() => newWish.classList.remove('scale-95'), 50);
+
+            document.getElementById('wishForm').reset();
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // Lightbox Photo View
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightboxModal').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
